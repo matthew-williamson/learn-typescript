@@ -5,43 +5,40 @@ interface Level {
   title: string;
   category: string;
   instructions: string[];
-  hints: string[];
+  hints?: string[];
 }
 const level: Level = {
   level: 1,
-  title: "Naming Things is Hard",
+  title: "Naming Things is Hard!",
   category: "String Constants",
   instructions: [
     "Welcome, Unknown Player! Uhm... What is your name?",
-    "Declare your name in the editor to the right using TypeScript.",
-  ],
-  hints: [
-    "TypeScript is essentially JavaScript with static typing",
-    "There are multiple ways to define variables in TypeScript/JavaScript",
-    "The `const` keyword defines a constant that cannot be reassigned",
-    "The `let` keyword defines a constant that can be reassigned",
+    "In order for us to continue, we need to name your character.",
+    "Using a `const` and a strong type of `string`, declare your name in the editor to the right using TypeScript.",
   ],
 };
 
 export const Instructions = () => {
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <Box>
         <Typography>
           Level {level.level}: {level.title}
         </Typography>
       </Box>
-      <Box>
+      <Stack spacing={2}>
         {level.instructions.map((text) => (
           <Typography key={text}>{text}</Typography>
         ))}
-      </Box>
-      <Box>
-        <Typography>Hints:</Typography>
-        {level.hints.map((text) => (
-          <Typography key={text}>- {text}</Typography>
-        ))}
-      </Box>
+      </Stack>
+      {level.hints && (
+        <Box>
+          <Typography>Hints:</Typography>
+          {level.hints.map((text) => (
+            <Typography key={text}>- {text}</Typography>
+          ))}
+        </Box>
+      )}
     </Stack>
   );
 };

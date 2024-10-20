@@ -6,10 +6,10 @@ import { Instructions } from "./Instructions";
 export const BottomPanel = () => (
   <Stack
     direction="row"
-    sx={{ flexGrow: 1, maxHeight: "50vh", overflow: "hidden" }}
+    sx={{ flexGrow: 1, height: "45vh", overflow: "hidden" }}
     divider={
       <Divider
-        sx={{ backgroundColor: (theme) => theme.palette.grey[600] }}
+        // sx={{ backgroundColor: (theme) => theme.palette.grey[600] }}
         orientation="vertical"
       />
     }

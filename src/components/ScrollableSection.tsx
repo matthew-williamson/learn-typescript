@@ -1,4 +1,4 @@
-import { Box, Stack, SxProps, Typography } from "@mui/material";
+import { Box, Divider, Stack, SxProps, Typography } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 interface ScrollableSectionProps extends PropsWithChildren {
@@ -16,11 +16,11 @@ export const ScrollableSection = ({
       <Stack
         sx={{
           p: 1,
-          borderBottom: (theme) => `1px solid ${theme.palette.grey[600]}`,
         }}
       >
         <Typography>{header}</Typography>
       </Stack>
+      <Divider />
       <Stack sx={{ p: 1 }}>{children}</Stack>
     </Box>
   );
