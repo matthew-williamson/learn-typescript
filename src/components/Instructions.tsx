@@ -12,9 +12,9 @@ const level: Level = {
   title: "Naming Things is Hard!",
   category: "String Constants",
   instructions: [
-    "Welcome, Unknown Player! Uhm... What is your name?",
-    "In order for us to continue, we need to name your character.",
-    "Using a `const` and a strong type of `string`, declare your name in the editor to the right using TypeScript.",
+    "Welcome, UNKNOWN! Uhm... What is your name?",
+    "In the editor to the right, we have declared an interface called `Character`, and then a constant `character` that implements that interface.",
+    "Please replace the value of the \"name\" property with your character's new name."
   ],
 };
 

@@ -12,7 +12,7 @@ export const ScrollableSection = ({
   header,
 }: ScrollableSectionProps) => {
   return (
-    <Box sx={{ flex: 1, overflowY: "auto", ...sx }}>
+    <Box sx={{ ...sx, width: '50%'}}>
       <Stack
         sx={{
           p: 1,
@@ -21,7 +21,7 @@ export const ScrollableSection = ({
         <Typography>{header}</Typography>
       </Stack>
       <Divider />
-      <Stack sx={{ p: 1 }}>{children}</Stack>
+      <Stack sx={{ p: 1, overflowY: "auto" }}>{children}</Stack>
     </Box>
   );
 };
