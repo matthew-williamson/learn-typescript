@@ -13,10 +13,15 @@ export const ScrollableSection = ({
 }: ScrollableSectionProps) => {
   return (
     <Box sx={{ flex: 1, overflowY: "auto", ...sx }}>
-    <Stack sx={{ p: 1, borderBottom: theme => `1px solid ${theme.palette.grey[600]}` }}>
-      <Typography>{header}</Typography>
+      <Stack
+        sx={{
+          p: 1,
+          borderBottom: (theme) => `1px solid ${theme.palette.grey[600]}`,
+        }}
+      >
+        <Typography>{header}</Typography>
       </Stack>
-      {children}
+      <Stack sx={{ p: 1 }}>{children}</Stack>
     </Box>
   );
 };
