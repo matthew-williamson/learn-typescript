@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import * as monaco from "monaco-editor";
-import ts from "typescript";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import { LevelContext } from "../context/levels";
 
 monaco.editor.defineTheme("myDarkTheme", {
   base: "vs-dark",
@@ -19,17 +19,21 @@ monaco.editor.defineTheme("myDarkTheme", {
 
 monaco.editor.setTheme("myDarkTheme");
 
-export const TerminalInput: React.FC = () => {
+interface TerminalInputProps {
+  tabValue: number;
+}
+
+export const TerminalInput = ({ tabValue }: TerminalInputProps) => {
+  const { currentLevel, setCode } = useContext(LevelContext);
   const editorRef = useRef<HTMLDivElement | null>(null);
   const monacoInstanceRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(
     null,
   );
-  const [code, setCode] = useState<string>("");
 
   useEffect(() => {
     if (editorRef.current) {
       monacoInstanceRef.current = monaco.editor.create(editorRef.current, {
-        value: `interface Character {\n\tname: string;\n}\n\nconst character: Character = {\n\tname: 'UNKNOWN'\n};`,
+        value: currentLevel.initialEditor,
         language: "typescript",
         automaticLayout: true, // Automatically adjust the editor layout
       });
@@ -40,25 +44,23 @@ export const TerminalInput: React.FC = () => {
       });
     }
 
-    return () => monacoInstanceRef.current?.dispose();
-  }, []);
+    setCode(currentLevel.initialEditor);
 
-  const runCode = () => {
-    try {
-      // Transpile TypeScript code into JavaScript
-      const transpiledCode = ts.transpile(code);
-      // Run the JavaScript code
-      const res = eval(transpiledCode);
-      console.log('res', { res })
-    } catch (error) {
-      console.error("Error executing code:", error);
-    }
-  };
+    return () => monacoInstanceRef.current?.dispose();
+  }, [currentLevel.initialEditor, setCode]);
 
   return (
-    <Stack
-      ref={editorRef}
-      sx={{ backgroundColor: "black", minHeight: '100vh', width: "100%" }}
-    />
+    <Box>
+      <Stack
+        ref={editorRef}
+        sx={{
+          backgroundColor: "black",
+          minHeight: "100vh",
+          width: "100%",
+          opacity: tabValue === 0 ? 1 : 0,
+        }}
+      />
+      {tabValue === 1 && <div>HI</div>}
+    </Box>
   );
 };

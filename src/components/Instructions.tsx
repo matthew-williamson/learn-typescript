@@ -1,44 +1,34 @@
 import { Box, Stack, Typography } from "@mui/material";
-
-interface Level {
-  level: number;
-  title: string;
-  category: string;
-  instructions: string[];
-  hints?: string[];
-}
-const level: Level = {
-  level: 1,
-  title: "Naming Things is Hard!",
-  category: "String Constants",
-  instructions: [
-    "Welcome, UNKNOWN! Uhm... What is your name?",
-    "In the editor to the right, we have declared an interface called `Character`, and then a constant `character` that implements that interface.",
-    "Please replace the value of the \"name\" property with your character's new name."
-  ],
-};
+import { useContext } from "react";
+import ReactMarkdown from "react-markdown";
+import { LevelContext } from "../context/levels";
 
 export const Instructions = () => {
+  const { currentLevel } = useContext(LevelContext);
+
   return (
     <Stack spacing={2}>
       <Box>
         <Typography>
-          Level {level.level}: {level.title}
+          Level {currentLevel.level}: {currentLevel.title}
         </Typography>
       </Box>
-      <Stack spacing={2}>
-        {level.instructions.map((text) => (
-          <Typography key={text}>{text}</Typography>
-        ))}
-      </Stack>
-      {level.hints && (
-        <Box>
-          <Typography>Hints:</Typography>
-          {level.hints.map((text) => (
-            <Typography key={text}>- {text}</Typography>
-          ))}
-        </Box>
-      )}
+      <ReactMarkdown
+        components={{
+          span: ({ children }) => <Typography>{children}</Typography>,
+          p: ({ children }) => <Typography>{children}</Typography>,
+          code: ({ children }) => (
+            <Typography
+              component="span"
+              sx={{ backgroundColor: (theme) => theme.palette.primary.dark }}
+            >
+              {children}
+            </Typography>
+          ),
+        }}
+      >
+        {currentLevel.instructions}
+      </ReactMarkdown>
     </Stack>
   );
 };
